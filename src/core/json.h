@@ -178,6 +178,25 @@ class TritonJson {
       return TRITONJSON_STATUSSUCCESS;
     }
 
+    // Swap a value with another.
+    TRITONJSON_STATUSTYPE Swap(TritonJson::Value& other)
+    {
+      rapidjson::Value& value = AsMutableValue();
+      value.Swap(other.AsMutableValue());
+      return TRITONJSON_STATUSSUCCESS;
+    }
+
+    // FIXME Should have Set* for all types.
+
+    // Set/overwrite a signed integer in a value. This changes the
+    // type of the value to signed int.
+    TRITONJSON_STATUSTYPE SetInt(const int64_t value)
+    {
+      rapidjson::Value& v = AsMutableValue();
+      v.SetInt64(value);
+      return TRITONJSON_STATUSSUCCESS;
+    }
+
     // Add an array or object as a new member to this value. 'value'
     // is moved into this value and so on return 'value' should not be
     // used. It is assumed that 'name' can be used by reference, it is
